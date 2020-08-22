@@ -17,9 +17,11 @@ class PredictionBot:
         f"@{getenv('MONGODB_URI')}/test?retryWrites=true&w=majority"
     ).medcabin.strain_table
     df = pd.read_csv('data/cannabis.csv')
-    tfidf = TfidfVectorizer()
+    tfidf = TfidfVectorizer(ngram_range=(1, 3), max_features=5000)
     nn = NearestNeighbors(n_neighbors=1, n_jobs=-1)
-    tokens = tfidf.fit_transform(df['Description'])
+    tokens = tfidf.fit_transform(
+        df['Description'] + ' ' + df['Flavors'] + ' ' + df['Effects']
+    )
     nearest = nn.fit(
         pd.DataFrame(tokens.todense(), columns=tfidf.get_feature_names())
     )
@@ -32,4 +34,4 @@ class PredictionBot:
 
 if __name__ == '__main__':
     bot = PredictionBot()
-    print(bot.predict("Some text in here..."))
+    print(bot.predict('headaches, sweet'))
