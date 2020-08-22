@@ -16,7 +16,7 @@ class PredictionBot:
         f"mongodb+srv://{getenv('MONGODB_USER')}:{getenv('MONGODB_PASS')}"
         f"@{getenv('MONGODB_URI')}/test?retryWrites=true&w=majority"
     ).medcabin.strain_table
-    df = pd.read_csv('../data/cannabis.csv')
+    df = pd.read_csv('data/cannabis.csv')
     tfidf = TfidfVectorizer()
     nn = NearestNeighbors(n_neighbors=1, n_jobs=-1)
     tokens = tfidf.fit_transform(df['Description'])
