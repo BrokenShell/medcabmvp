@@ -26,7 +26,7 @@ class PredictionBot:
     tfidf = TfidfVectorizer(
         stop_words='english',
         ngram_range=(1, 2),
-        max_features=12000,
+        max_features=8000,
     )
     knn = NearestNeighbors(
         n_neighbors=1,
