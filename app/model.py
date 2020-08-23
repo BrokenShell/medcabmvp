@@ -3,7 +3,6 @@ by Robert Sharp
 
 Input -> TF-IDF -> KNN -> Output
 """
-import spacy
 import pandas as pd
 from os import getenv
 from pymongo import MongoClient
@@ -11,14 +10,6 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 __all__ = ('PredictionBot',)
-nlp = spacy.load('en_core_web_sm')
-
-
-def tokenize(document: str):
-    return [
-        token.lemma_ for token in nlp(document)
-        if not token.is_stop and not token.is_punct
-    ]
 
 
 class PredictionBot:
@@ -28,9 +19,10 @@ class PredictionBot:
         f"@{getenv('MONGODB_URI')}/test?retryWrites=true&w=majority"
     ).medcabin.strain_table
     df = pd.read_csv('data/cannabis.csv')
-    training = df['Description'] + ' ' + df['Flavors'] + ' ' + df['Effects']
+    flavors = df['Flavors'].str.replace(',', ' ')
+    effects = df['Effects'].str.replace(',', ' ')
+    training = df['Description'] + ' ' + flavors + ' ' + effects
     tfidf = TfidfVectorizer(
-        tokenizer=tokenize,
         stop_words='english',
         ngram_range=(1, 2),
         max_features=8000,
