@@ -21,7 +21,8 @@ class PredictionBot:
     df = pd.read_csv('data/cannabis.csv')
     flavors = df['Flavors'].str.replace(',', ' ')
     effects = df['Effects'].str.replace(',', ' ')
-    training = df['Description'] + ' ' + flavors + ' ' + effects
+    name = df['Name']
+    training = df['Description'] + ' ' + flavors + ' ' + effects + ' ' + name
     tfidf = TfidfVectorizer(
         stop_words='english',
         ngram_range=(1, 2),
