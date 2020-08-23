@@ -14,8 +14,9 @@ def index():
     return jsonify("App Online!")
 
 
+@API.route('/search/')
 @API.route('/search/<user_input>')
-def search(user_input: str):
+def search(user_input: str = 'cannabis'):
     """ Arbitrary Search Route """
     return jsonify(API.predict(user_input))
 
