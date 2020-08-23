@@ -33,7 +33,7 @@ class PredictionBot:
         # tokenizer=tokenize,
         stop_words='english',
         ngram_range=(1, 2),
-        max_features=10000,
+        max_features=9000,
     )
     knn = NearestNeighbors(
         n_neighbors=1,
