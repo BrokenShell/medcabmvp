@@ -17,7 +17,7 @@ by Robert Sharp
 
 
 ### API
-- Natural Search:       https://medcabbot.herokuapp.com/<user_input: str>
+- Natural Search:       https://medcabbot.herokuapp.com/search/<user_input: str>
 - Id Lookup:            https://medcabbot.herokuapp.com/id/<user_input: int>
 - Name Lookup:          https://medcabbot.herokuapp.com/name/<user_input: str>
 - Random Strain:        https://medcabbot.herokuapp.com/random/
