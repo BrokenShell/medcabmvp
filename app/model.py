@@ -8,7 +8,7 @@ from os import getenv
 import pandas as pd
 
 
-__all__ = ('connect_db',)
+__all__ = ('connect_db', 'read_csv')
 
 
 def connect_db():
@@ -19,19 +19,23 @@ def connect_db():
     ).medcabin.strain_table
 
 
+def read_csv(file_name):
+    return pd.read_csv(file_name)
+
+
 def make_db(file_name: str):
     """ Creates and Populates the Database """
     db = connect_db()
-    df = pd.read_csv(file_name)
-    data = df.to_dict(orient='records')
+    data = read_csv(file_name).to_dict(orient='records')
     for strain in data:
         strain['Effects'] = strain['Effects'].split(',')
         strain['Flavors'] = strain['Flavors'].split(',')
         strain['Nearest'] = [
-            data[int(idx)]['Name'] for idx in strain['Nearest'].split(',')]
+            data[int(idx)]['Name'] for idx in strain['Nearest'].split(',')
+        ]
     db.insert_many(data)
 
 
 if __name__ == '__main__':
-    # make_db('app/data.csv')
+    # make_db('app/data.csv')  # DO ONLY ONCE!
     print(next(connect_db().find({'Name': 'Wedding Cake'})))

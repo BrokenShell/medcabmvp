@@ -4,10 +4,10 @@ Controller Bot
 by Robert Sharp
 August 2020 """
 from Fortuna import random_below
-import pandas as pd
+from pandas import DataFrame
 from sklearn.neighbors import NearestNeighbors
 from sklearn.feature_extraction.text import TfidfVectorizer
-from app.model import connect_db
+from app.model import connect_db, read_csv
 
 
 __all__ = ('PredictionBot',)
@@ -16,7 +16,7 @@ __all__ = ('PredictionBot',)
 class PredictionBot:
     """ NLP Bot for Cannabis Suggestion App """
     db = connect_db()
-    df = pd.read_csv('app/data.csv')
+    df = read_csv('app/data.csv')
     flavors = df['Flavors'].str.replace(',', ' ')
     effects = df['Effects'].str.replace(',', ' ')
     name = df['Name']
@@ -29,7 +29,7 @@ class PredictionBot:
     knn = NearestNeighbors(
         n_neighbors=1,
         n_jobs=-1,
-    ).fit(pd.DataFrame(tfidf.fit_transform(training).todense()))
+    ).fit(DataFrame(tfidf.fit_transform(training).todense()))
 
     def id_lookup(self, _id) -> dict:
         return next(self.db.find({'_id': int(_id)}))
