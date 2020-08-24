@@ -23,7 +23,7 @@ def read_csv(file_name):
     return pd.read_csv(file_name)
 
 
-def make_db(file_name: str):
+def _make_db(file_name: str):
     """ Creates and Populates the Database """
     db = connect_db()
     data = read_csv(file_name).to_dict(orient='records')
@@ -37,5 +37,5 @@ def make_db(file_name: str):
 
 
 if __name__ == '__main__':
-    # make_db('app/data.csv')  # DO ONLY ONCE!
+    # _make_db('app/data.csv')  # DO ONLY ONCE!
     print(next(connect_db().find({'Name': 'Wedding Cake'})))
