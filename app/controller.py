@@ -44,8 +44,3 @@ class PredictionBot:
         vectors = self.tfidf.transform([user_input]).todense()
         predict = self.knn.kneighbors(vectors, return_distance=False)[0][0]
         return self.id_lookup(predict)
-
-
-if __name__ == '__main__':
-    prediction = PredictionBot()
-    print(prediction.name_lookup(input("Name Your Poison: ")))
