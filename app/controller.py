@@ -7,7 +7,7 @@ from Fortuna import random_below
 from pandas import DataFrame
 from sklearn.neighbors import NearestNeighbors
 from sklearn.feature_extraction.text import TfidfVectorizer
-from app.model import connect_db, read_csv
+from app.model import DataModel
 
 
 __all__ = ('PredictionBot',)
@@ -15,8 +15,9 @@ __all__ = ('PredictionBot',)
 
 class PredictionBot:
     """ NLP Bot for Cannabis Suggestion App """
-    db = connect_db()
-    df = read_csv('app/data.csv')
+    data = DataModel()
+    db = data.connect_db()
+    df = data.read_csv()
     flavors = df['Flavors'].str.replace(',', ' ')
     effects = df['Effects'].str.replace(',', ' ')
     name = df['Name']
@@ -44,3 +45,8 @@ class PredictionBot:
         vectors = self.tfidf.transform([user_input]).todense()
         predict = self.knn.kneighbors(vectors, return_distance=False)[0][0]
         return self.id_lookup(predict)
+
+
+if __name__ == '__main__':
+    bot = PredictionBot()
+    print(bot.search("insomnia sweet"))
