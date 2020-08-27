@@ -16,6 +16,7 @@ __all__ = ('PredictionBot',)
 
 class PredictionBot:
     """ NLP Bot for Cannabis Suggestion App """
+    __slots__ = ()
 
     class Tokens:
         nlp = English()
