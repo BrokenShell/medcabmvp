@@ -38,8 +38,8 @@ class PredictionBot:
     tfidf = TfidfVectorizer(
         tokenizer=Tokens.tokenize,
         stop_words='english',
-        ngram_range=(1, 3),
-        max_features=24000,
+        ngram_range=(1, 2),
+        max_features=5000,
     )
     knn = NearestNeighbors(
         n_neighbors=1,
