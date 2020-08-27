@@ -16,7 +16,7 @@ __all__ = ('PredictionBot',)
 
 class PredictionBot:
     """ NLP Bot for Cannabis Suggestion App """
-    
+
     class Tokens:
         nlp = English()
 
@@ -44,8 +44,7 @@ class PredictionBot:
     knn = NearestNeighbors(
         n_neighbors=1,
         n_jobs=-1,
-    ).fit(pd.DataFrame(tfidf.fit_transform(training).todense()))
-
+    ).fit(DataFrame(tfidf.fit_transform(training).todense()))
 
     def id_lookup(self, _id) -> dict:
         return next(self.db.find({'_id': int(_id)}))
