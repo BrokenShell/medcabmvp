@@ -3,7 +3,7 @@ Controller Bot
 
 by Robert Sharp
 August 2020 """
-from Fortuna import random_below
+from random import randrange
 from pandas import DataFrame
 from sklearn.neighbors import NearestNeighbors
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -39,7 +39,7 @@ class PredictionBot:
         return next(self.db.find({'Name': name.title()}))
 
     def random(self) -> dict:
-        return self.id_lookup(random_below(2155))
+        return self.id_lookup(randrange(2155))
 
     def search(self, user_input: str) -> dict:
         vectors = self.tfidf.transform([user_input]).todense()
