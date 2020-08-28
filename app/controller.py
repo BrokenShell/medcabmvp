@@ -40,7 +40,7 @@ class PredictionBot:
         tokenizer=Tokens.tokenize,
         stop_words='english',
         ngram_range=(1, 3),
-        max_features=15000,
+        max_features=5000,
     )
     knn = NearestNeighbors(
         n_neighbors=1,
